@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { MessageCircle, Send, Loader2 } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
+import remarkGfm from "remark-gfm";
+import "../styles/markdown-table.css"
 
 // Message type definition
 type Message = {
@@ -119,6 +121,7 @@ const ChatApp = () => {
                   ) : (
                     <ReactMarkdown
                       className="prose prose-sm max-w-none"
+                      remarkPlugins={[remarkGfm]}
                       components={{
                         p: ({ children }) => <p className={markdownStyles.p}>{children}</p>,
                         h1: ({ children }) => <h1 className={markdownStyles.h1}>{children}</h1>,
@@ -137,9 +140,6 @@ const ChatApp = () => {
                             {children}
                           </a>
                         ),
-                        table: ({ children }) => <table className={markdownStyles.table}>{children}</table>,
-                        th: ({ children }) => <th className={markdownStyles.th}>{children}</th>,
-                        td: ({ children }) => <td className={markdownStyles.td}>{children}</td>,
                       }}
                     >
                       {message.text}
